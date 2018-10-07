@@ -10,3 +10,12 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+
+# Build result, config files
+bin/*.json
+bin/*.txt
+bin/*.xml
+
+# IDE related
+.idea
+*.idea
