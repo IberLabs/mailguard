@@ -32,15 +32,12 @@ func init() {
 }
 
 func main() {
+	// Start
 	log.Println("Connecting to server...")
 
 	// Check mailbox
 	incomingMail(cfg)
 
-
-
-	// Send emails
-	outgoingMail(cfg)
-
+	// End
 	log.Println("Done!")
 }

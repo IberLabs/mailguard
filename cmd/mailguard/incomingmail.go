@@ -10,7 +10,6 @@ import (
 	"os"
 	"github.com/emersion/go-imap/client"
 	"github.com/emersion/go-imap"
-	"github.com/emirpasic/gods/utils"
 )
 
 const CONST_MAXUNREADMESSAGESPERCYCLE		= 10
@@ -30,7 +29,6 @@ func openIMAPConnection(config Config) (c *client.Client) {
 
 	return connection
 }
-
 
 /**
 	Check incoming messages
@@ -62,13 +60,8 @@ func incomingMail(config Config){
 		done <- c.Fetch(seqset, []imap.FetchItem{imap.FetchEnvelope}, messages)
 	}()
 
-	// Walk around message list
-	log.Println("Last " + utils.ToString(CONST_MAXUNREADMESSAGESPERCYCLE) +  " messages:")
-	for msg := range messages {
-		log.Println("* " + msg.Envelope.Subject)
-		log.Println(msg.Envelope.Date)
-		log.Println()
-	}
+	// Evaluate messages and trigger actions if needed
+	evalAndTriggerActions(config, messages)
 
 	if err := <-done; err != nil {
 		log.Fatal(err)

@@ -4,7 +4,7 @@ type Config struct {
 	Smtp 	struct {
 		Host     	string `json:"host"`
 		Port	 	string `json:"port"`
-	} `json:"struct"`
+	} `json:"smtp"`
 	Imap 	struct {
 		Host     	string `json:"host"`
 		Port 		string `json:"port"`

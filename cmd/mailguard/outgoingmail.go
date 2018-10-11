@@ -10,17 +10,18 @@ import (
 /**
 	Send e-mail messages
 */
-func outgoingMail(config Config) {
+func sendMail(config Config, from string, to string, subject string, body string) {
 	// Send message
 	// Connect to the server, authenticate, set the sender and recipient,
 	// and send the email all in one step.
 	auth := sasl.NewPlainClient("", config.Auth.Username, config.Auth.Password)
-	smtpTo := []string{"manuelbcd@gmail.com"}
-	msg := strings.NewReader("To: manuelbcd@gmail.com\r\n" +
-		"Subject: Una pruebecilla\r\n" +
+
+	smtpTo := []string{to}
+	msg := strings.NewReader("To: " + to + "\r\n" +
+		"Subject: " + subject + "\r\n" +
 		"\r\n" +
-		"Esto es una prueba.\r\n")
-	smtpErr := smtp.SendMail("smtp.gmail.com:587", auth, config.Account.Sender, smtpTo, msg)
+		body + "\n")
+	smtpErr := smtp.SendMail(cfg.Smtp.Host + ":" + cfg.Smtp.Port, auth, config.Account.Sender, smtpTo, msg)
 	if smtpErr != nil {
 		log.Fatal(smtpErr)
 	}
