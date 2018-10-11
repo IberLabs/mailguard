@@ -17,5 +17,5 @@ bin/*.txt
 bin/*.xml
 
 # IDE related
-.idea
+.idea/
 *.idea
