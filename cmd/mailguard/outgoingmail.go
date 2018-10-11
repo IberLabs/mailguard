@@ -7,6 +7,9 @@ import (
 	"log"
 )
 
+/**
+	Send e-mail messages
+*/
 func outgoingMail(config Config) {
 	// Send message
 	// Connect to the server, authenticate, set the sender and recipient,

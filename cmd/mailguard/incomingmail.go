@@ -2,11 +2,14 @@ package main
 
 import (
 	"log"
+	"os"
 	"github.com/emersion/go-imap/client"
 	"github.com/emersion/go-imap"
-	"os"
 )
 
+/**
+	Open a new IMAP connection and return the connection pointer
+ */
 func openIMAPConnection(config Config) (c *client.Client) {
 	// Connect to server
 	connection, err := client.DialTLS("imap.gmail.com:993", nil)
@@ -19,6 +22,9 @@ func openIMAPConnection(config Config) (c *client.Client) {
 	return connection
 }
 
+/**
+	Check incoming messages
+ */
 func incomingMail(config Config){
 
 	c := openIMAPConnection(cfg)
