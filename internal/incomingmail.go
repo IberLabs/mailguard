@@ -18,7 +18,7 @@ const CONST_INBOXFOLDERNAME					= "INBOX"
 /**
 	Open a new IMAP connection and return the connection pointer
  */
-func openIMAPConnection(config in.Config) (c *client.Client) {
+func openIMAPConnection(config Config) (c *client.Client) {
 	// Connect to server
 	connection, err := client.DialTLS("imap.gmail.com:993", nil)
 	if err != nil {
