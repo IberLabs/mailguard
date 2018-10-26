@@ -34,7 +34,7 @@ func openIMAPConnection(config Config) (c *client.Client) {
 	Check incoming messages
 	TODO: Get message bodies (only envelope right now): https://github.com/emersion/go-imap/wiki/Fetching-messages
  */
-func IncomingMail(config Config){
+func IncomingMail(config Config, rules []string){
 
 	// Open connection
 	c := openIMAPConnection(config)
@@ -61,7 +61,7 @@ func IncomingMail(config Config){
 	}()
 
 	// Evaluate messages and trigger actions if needed
-	EvalRulesAndTriggerActions(config, messages, CONST_MAXUNREADMESSAGESPERCYCLE)
+	EvalRulesAndTriggerActions(config, rules, messages, CONST_MAXUNREADMESSAGESPERCYCLE)
 
 	if err := <-done; err != nil {
 		log.Fatal(err)

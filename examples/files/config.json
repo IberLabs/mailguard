@@ -1,0 +1,17 @@
+{
+  "smtp": {
+    "host":"smtp.gmail.com",
+    "port":"587"
+  },
+  "imap": {
+    "host":"imap.gmail.com",
+    "port":"993"
+  },
+  "auth": {
+    "username":"myaddress@gmail.com",
+    "password":"1234dummy"
+  },
+  "account": {
+    "sender":"formaladdress@acme.com"
+  }
+}
