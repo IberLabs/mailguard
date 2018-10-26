@@ -13,13 +13,13 @@ var cfg 			in.Config			// Main configuration var
 
 
 func init() {
-	appDir 		  	:= getAppDir()
+	appDir 		  	:= in.GetAppDir()
 	if appDir == "" {
 		log.Println("Error retrieving app dir")
 		os.Exit(0)
 	}
 
-	cfg 	= loadConfiguration(appDir + "/" + configFilename)
+	cfg 	= in.LoadConfiguration(appDir + "/" + configFilename)
 	println(cfg.Imap.Host)
 	println(cfg.Auth.Username)
 	if cfg.Auth.Username == "" {
@@ -37,7 +37,7 @@ func main() {
 	log.Println("Connecting to server...")
 
 	// Check mailbox
-	incomingMail(cfg)
+	in.IncomingMail(cfg)
 
 	// End
 	log.Println("Done!")

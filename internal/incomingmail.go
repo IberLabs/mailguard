@@ -1,4 +1,4 @@
-package main
+package internal
 
 /**
 More information about emerson IMAP lib
@@ -8,7 +8,6 @@ https://github.com/emersion/go-imap/wiki
 import (
 	"log"
 	"os"
-	in "mailguard/internal"
 	"github.com/emersion/go-imap/client"
 	"github.com/emersion/go-imap"
 )
@@ -35,10 +34,10 @@ func openIMAPConnection(config in.Config) (c *client.Client) {
 	Check incoming messages
 	TODO: Get message bodies (only envelope right now): https://github.com/emersion/go-imap/wiki/Fetching-messages
  */
-func incomingMail(config in.Config){
+func IncomingMail(config Config){
 
 	// Open connection
-	c := openIMAPConnection(cfg)
+	c := openIMAPConnection(config)
 
 	// Don't forget to logout at the end of this method
 	defer c.Logout()
@@ -62,7 +61,7 @@ func incomingMail(config in.Config){
 	}()
 
 	// Evaluate messages and trigger actions if needed
-	in.EvalRulesAndTriggerActions(config, messages, CONST_MAXUNREADMESSAGESPERCYCLE)
+	EvalRulesAndTriggerActions(config, messages, CONST_MAXUNREADMESSAGESPERCYCLE)
 
 	if err := <-done; err != nil {
 		log.Fatal(err)

@@ -1,4 +1,4 @@
-package main
+package internal
 
 import (
 	"os"
@@ -6,11 +6,10 @@ import (
 	"log"
 	"encoding/json"
 	"path/filepath"
-	in "mailguard/internal"
 )
 
-func loadConfiguration(file string) in.Config {
-	var configData in.Config
+func LoadConfiguration(file string) Config {
+	var configData Config
 	configFile, err := os.Open(file)
 	defer configFile.Close()
 	if err != nil {
@@ -22,7 +21,7 @@ func loadConfiguration(file string) in.Config {
 	return configData
 }
 
-func getAppDir() string {
+func GetAppDir() string {
 	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
 		log.Fatal(err)
