@@ -1,26 +1,25 @@
-package main
+package internal
 
 import (
-	"github.com/emersion/go-imap"
+	"fmt"
 	"log"
 	"github.com/emirpasic/gods/utils"
-	in "mailguard/internal"
-	"fmt"
+	"github.com/emersion/go-imap"
 )
 
 /**
 Receive e-mails in txt format and evaluate parameters.
 Output will be a list of determined behaviour.
  */
-func evalAndTriggerActions(config in.Config, messages chan * imap.Message)  {
+func EvalRulesAndTriggerActions(config Config, messages chan * imap.Message, maxUnreadMessagesPerCycle int)  {
 
 	// Walk around message list
-	log.Println("Last " + utils.ToString(CONST_MAXUNREADMESSAGESPERCYCLE) +  " messages:")
+	log.Println("Last " + utils.ToString(maxUnreadMessagesPerCycle) +  " messages:")
 	for msg := range messages {
 		log.Println("* " + msg.Envelope.Subject)
 		fmt.Println(msg.Envelope.Date)
 
-		evalRuleAndTriggerAction(msg)
+		evalRuleAndTriggerAction(msg, config)
 		
 		fmt.Println()
 	}
@@ -29,20 +28,18 @@ func evalAndTriggerActions(config in.Config, messages chan * imap.Message)  {
 /**
 	Evaluate a message and generate an action
  */
-func evalRuleAndTriggerAction(msg *imap.Message) {
+func evalRuleAndTriggerAction(msg *imap.Message, config Config) {
 
 	// Rule 1 : Send e-mail to sender
 	if(msg.Envelope.Subject == "hola"){
 		fmt.Println("Rule 1 activated by message: " + msg.Envelope.Subject)
 
 		// Send emails
-		sendMail(	cfg, cfg.Account.Sender, (msg.Envelope.Sender[0].MailboxName + "@" + msg.Envelope.Sender[0].HostName),
+		sendMail(	config, config.Account.Sender, (msg.Envelope.Sender[0].MailboxName + "@" + msg.Envelope.Sender[0].HostName),
 			"Que tal vamos", "Que tal vamos. \r\nque tal estamos")
 
 	}else{
 		fmt.Println("No rules matched")
 	}
-
-
 
 }

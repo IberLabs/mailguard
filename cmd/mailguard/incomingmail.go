@@ -62,7 +62,7 @@ func incomingMail(config in.Config){
 	}()
 
 	// Evaluate messages and trigger actions if needed
-	evalAndTriggerActions(config, messages)
+	in.EvalRulesAndTriggerActions(config, messages, CONST_MAXUNREADMESSAGESPERCYCLE)
 
 	if err := <-done; err != nil {
 		log.Fatal(err)

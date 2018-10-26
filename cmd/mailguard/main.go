@@ -8,7 +8,7 @@ import (
 
 const configFilename = 	"config.json"
 
-var appDir 			string			// Configuration var for app folder
+var appDir 			string				// Configuration var for app folder
 var cfg 			in.Config			// Main configuration var
 
 
