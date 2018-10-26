@@ -8,6 +8,7 @@ https://github.com/emersion/go-imap/wiki
 import (
 	"log"
 	"os"
+	in "mailguard/internal"
 	"github.com/emersion/go-imap/client"
 	"github.com/emersion/go-imap"
 )
@@ -18,7 +19,7 @@ const CONST_INBOXFOLDERNAME					= "INBOX"
 /**
 	Open a new IMAP connection and return the connection pointer
  */
-func openIMAPConnection(config Config) (c *client.Client) {
+func openIMAPConnection(config in.Config) (c *client.Client) {
 	// Connect to server
 	connection, err := client.DialTLS("imap.gmail.com:993", nil)
 	if err != nil {
@@ -34,7 +35,7 @@ func openIMAPConnection(config Config) (c *client.Client) {
 	Check incoming messages
 	TODO: Get message bodies (only envelope right now): https://github.com/emersion/go-imap/wiki/Fetching-messages
  */
-func incomingMail(config Config){
+func incomingMail(config in.Config){
 
 	// Open connection
 	c := openIMAPConnection(cfg)

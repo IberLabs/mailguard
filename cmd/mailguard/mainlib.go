@@ -3,13 +3,14 @@ package main
 import (
 	"os"
 	"fmt"
+	"log"
 	"encoding/json"
 	"path/filepath"
-	"log"
+	in "mailguard/internal"
 )
 
-func loadConfiguration(file string) Config {
-	var configData Config
+func loadConfiguration(file string) in.Config {
+	var configData in.Config
 	configFile, err := os.Open(file)
 	defer configFile.Close()
 	if err != nil {

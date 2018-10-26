@@ -3,12 +3,13 @@ package main
 import (
 	"log"
 	"os"
+	in "mailguard/internal"
 )
 
 const configFilename = 	"config.json"
 
 var appDir 			string			// Configuration var for app folder
-var cfg 			Config			// Main configuration var
+var cfg 			in.Config			// Main configuration var
 
 
 func init() {

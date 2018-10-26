@@ -4,6 +4,7 @@ import (
 	"github.com/emersion/go-imap"
 	"log"
 	"github.com/emirpasic/gods/utils"
+	in "mailguard/internal"
 	"fmt"
 )
 
@@ -11,7 +12,7 @@ import (
 Receive e-mails in txt format and evaluate parameters.
 Output will be a list of determined behaviour.
  */
-func evalAndTriggerActions(config Config, messages chan * imap.Message)  {
+func evalAndTriggerActions(config in.Config, messages chan * imap.Message)  {
 
 	// Walk around message list
 	log.Println("Last " + utils.ToString(CONST_MAXUNREADMESSAGESPERCYCLE) +  " messages:")
