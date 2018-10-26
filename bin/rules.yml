@@ -1,7 +1,0 @@
-say-hello: 
-    eval:   subject = 'hello'
-    acton:  answer(hello)
-    
-say-outOfOffice:
-    eval:   (time() < 9 AND time() > 18) AND (dayOfWeek() = 7 OR dayOfWeek() = 1)
-    action: answer(outofoffice)

@@ -15,6 +15,7 @@
 bin/*.json
 bin/*.txt
 bin/*.xml
+bin/*.yml
 
 # IDE related
 .idea/
