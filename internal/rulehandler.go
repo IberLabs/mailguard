@@ -5,8 +5,11 @@ import (
 	"log"
 	"github.com/emirpasic/gods/utils"
 	"github.com/emersion/go-imap"
+	"strings"
 	"gopkg.in/Knetic/govaluate.v2"
 )
+
+const CONST_TAG_EVAL	= "eval:"
 
 /**
 Receive e-mails in txt format and evaluate parameters.
@@ -31,27 +34,33 @@ func EvalRulesAndTriggerActions(config Config, rules []string, messages chan * i
  */
 func evalRuleAndTriggerAction(msg *imap.Message, config Config, rules []string) {
 
+	// Walk around rules
+	for _, rule := range rules {
 
-	/**
-	TODO: Evaluate rules, create functions, contexts, logs.
-	 */
-	expression, err := govaluate.NewEvaluableExpression("foo > 0");
 
-	if err != nil {
-		log.Fatal(err)
+		if !strings.Contains( rule, CONST_TAG_EVAL){
+			continue
+		}
+
+		i := strings.Index(rule, CONST_TAG_EVAL)
+		// Trim any empty char or tabulation
+		rawRule := strings.Trim(rule[i+len(CONST_TAG_EVAL):], "	")
+		rawRule = strings.Trim(rawRule, "	")
+		rawRule = strings.Trim(rawRule, " ")
+
+		fmt.Println("Rule detected")
+		fmt.Println("'" + rawRule + "'")
+
+		expression, err := govaluate.NewEvaluableExpression(rawRule);
+		parameters := make(map[string]interface{}, 8)
+		parameters["subject"] = "hello"
+		result, err := expression.Evaluate(parameters);
+		// result is now set to "false", the bool value
+		_ = result	// temp
+		_ = err		// temp
+
 	}
-
-	parameters := make(map[string]interface{}, 8)
-	parameters["foo"] = -1;
-
-	result, err := expression.Evaluate(parameters);
-
-	result = result
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
+	return //temp
 
 
 	// TEMPORARY HARD-CODED---------------------------------------
