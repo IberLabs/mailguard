@@ -74,7 +74,7 @@ func IncomingMail(config * Config, rules []string){
 	convertEmailsToDataUnits(messages, &dataUnitList)
 
 	// Evaluate messages and trigger actions if needed
-	EvalRulesAndTriggerActions(config, rules, &dataUnitList, CONST_MAXUNREADMESSAGESPERCYCLE)
+	EvalRulesAndTriggerActions(config, rules, &dataUnitList)
 
 	if err := <-done; err != nil {
 		log.Fatal(err)

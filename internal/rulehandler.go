@@ -3,7 +3,6 @@ package internal
 import (
 	"fmt"
 	"log"
-	"github.com/emirpasic/gods/utils"
 	"strings"
 	"gopkg.in/Knetic/govaluate.v2"
 	"time"
@@ -15,9 +14,9 @@ const CONST_TAG_EVAL	= "eval:"
 	Receive e-mails in txt format and evaluate parameters.
 	Output will be a list of determined behaviour.
  */
-func EvalRulesAndTriggerActions(config * Config, rules []string, dataUnitList * [] DataUnit, maxUnreadMessagesPerCycle int)  {
+func EvalRulesAndTriggerActions(config * Config, rules []string, dataUnitList * [] DataUnit)  {
 	// Walk around message list
-	log.Println("Last " + utils.ToString(maxUnreadMessagesPerCycle) +  " messages:")
+	log.Println("Last " + string(len(*dataUnitList)) +  " messages:")
 	for element := range *dataUnitList {
 		evalRuleAndTriggerAction(&(*dataUnitList)[element], config, rules)
 	}
