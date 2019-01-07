@@ -64,6 +64,7 @@ func evalRuleAndTriggerAction(dataUnit * DataUnit, config * Config, rules []stri
 		parameters["subject"] = dataUnit.Subject
 
 		/** TODO: Add functions evaluation */
+		/** THIS IS TEMPORARY HARDCODED */
 		result, err := expression.Evaluate(parameters);
 
 		if err == nil && result == true {
@@ -104,7 +105,13 @@ func initExprFunctions() (funcs * map[string]govaluate.ExpressionFunction) {
 			return (float64)(length), nil
 		},
 		"time": func(args ...interface{}) (interface{}, error) {
-			return (string)("'" + time.Now().String() + "'"), nil
+			return (string)("'" + time.Now().Format("15:04:05") + "'"), nil
+		},
+		"date": func(args ...interface{}) (interface{}, error) {
+			return (string)("'" + time.Now().Format("2006-01-02") + "'"), nil
+		},
+		"datetime": func(args ...interface{}) (interface{}, error) {
+			return (string)("'" + time.Now().Format("2006-01-02 15:04:05") + "'"), nil
 		},
 		"dayOfWeek": func(args ...interface{}) (interface{}, error) {
 			dayofw := int(time.Now().Weekday())
