@@ -22,9 +22,9 @@ const CONST_INBOXFOLDERNAME					= "INBOX"
 /**
 	Open a new IMAP connection and return the connection pointer
  */
-func openIMAPConnection(config Config) (c *client.Client) {
+func openIMAPConnection(config * Config) (c *client.Client) {
 	// Connect to server
-	connection, err := client.DialTLS("imap.gmail.com:993", nil)
+	connection, err := client.DialTLS(config.Imap.Host + ":" + config.Imap.Port, nil)
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(1)
@@ -38,7 +38,7 @@ func openIMAPConnection(config Config) (c *client.Client) {
 	Check incoming messages
 	TODO: Get message bodies (only envelope right now): https://github.com/emersion/go-imap/wiki/Fetching-messages
  */
-func IncomingMail(config Config, rules []string){
+func IncomingMail(config * Config, rules []string){
 
 	// Open connection
 	c := openIMAPConnection(config)

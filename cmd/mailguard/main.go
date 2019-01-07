@@ -40,7 +40,7 @@ func main() {
 	log.Println("Connecting to server...")
 
 	// Check mailbox
-	in.IncomingMail(cfg, rules)
+	in.IncomingMail(&cfg, rules)
 
 	// End
 	log.Println("Done!")
