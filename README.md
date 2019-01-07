@@ -16,6 +16,8 @@ Execute build script.
 
 ## How it works
 
+![High level diagram](https://github.com/IberLabs/mailguard/blob/master/doc/mailguard.png?raw=true)
+
 1. Connect to POP3/IMAP mailbox.
 2. Load dynamic ruleset from configuration file.
 3. Move trough the e-mail list evaluating dynamic rules.
