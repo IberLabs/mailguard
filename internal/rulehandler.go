@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"github.com/emirpasic/gods/utils"
-	"github.com/emersion/go-imap"
 	"strings"
 	"gopkg.in/Knetic/govaluate.v2"
 )
@@ -15,24 +14,20 @@ const CONST_TAG_EVAL	= "eval:"
 Receive e-mails in txt format and evaluate parameters.
 Output will be a list of determined behaviour.
  */
-func EvalRulesAndTriggerActions(config Config, rules []string, messages chan * imap.Message, maxUnreadMessagesPerCycle int)  {
+func EvalRulesAndTriggerActions(config Config, rules []string, dataUnitList * [] DataUnit, maxUnreadMessagesPerCycle int)  {
 
 	// Walk around message list
 	log.Println("Last " + utils.ToString(maxUnreadMessagesPerCycle) +  " messages:")
-	for msg := range messages {
-		log.Println("* " + msg.Envelope.Subject)
-		fmt.Println(msg.Envelope.Date)
-
-		evalRuleAndTriggerAction(msg, config, rules)
-		fmt.Println()
+	for element := range *dataUnitList {
+		evalRuleAndTriggerAction(&(*dataUnitList)[element], config, rules)
 	}
 }
 
 /**
-	Evaluate a rule against messages an trigger an action.
+	Evaluate a rule against a particular dataUnits an trigger an action.
 	Both rules and actions are loaded from yml file.
  */
-func evalRuleAndTriggerAction(msg *imap.Message, config Config, rules []string) {
+func evalRuleAndTriggerAction(dataUnit * DataUnit, config Config, rules []string) {
 
 	var rulesMatched = false
 
@@ -59,29 +54,33 @@ func evalRuleAndTriggerAction(msg *imap.Message, config Config, rules []string) 
 
 		expression, err := govaluate.NewEvaluableExpression(rawRule);
 		parameters := make(map[string]interface{}, 8)
-		parameters["subject"] = msg.Envelope.Subject;
-		parameters["sender"] = msg.Envelope.Sender;
+
+
+		// Add message fields to evaluation parameters
+		parameters["date"] = dataUnit.Date.String()
+		parameters["from"] = dataUnit.From
+		parameters["to"] = dataUnit.To
+		parameters["subject"] = dataUnit.Subject
+
 
 		/** TODO: Add functions evaluation */
-
 		result, err := expression.Evaluate(parameters);
 
 		if err == nil && result == true {
 			rulesMatched = true
 
 			//Action temporary hardcoded
-			fmt.Println("Rule 1 activated by message: " + msg.Envelope.Subject)
+			fmt.Println("Rule 1 activated by message: " + dataUnit.Subject)
 			fmt.Println("Sending message (Hardcoded for now)")
 
 			// Send emails
-			sendMail(	config, config.Account.Sender, (msg.Envelope.Sender[0].MailboxName + "@" + msg.Envelope.Sender[0].HostName),
+			sendMail(	config, config.Account.Sender, (dataUnit.From),
 				"Que tal vamos", "Que tal vamos. \r\nque tal estamos")
 			break
 		}
 
 
 	}
-
 
 
 	// TEMPORARY HARD-CODED---------------------------------------

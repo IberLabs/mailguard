@@ -14,7 +14,14 @@ Execute build script.
     ./scripts/build.sh
 
 
+## How it works
+
+1. Connect to POP3/IMAP mailbox.
+2. Load dynamic ruleset from configuration file.
+3. Move trough the e-mail list evaluating dynamic rules.
+4. Perform configured action from a set of available actions: send e-mail, trigger webhook, integrations.
+
 
 ## Collaboration
 
-This project is on a early stage but any collaboration would be more than appreciated.
+This project is on an early stage but any collaboration would be more than appreciated.
