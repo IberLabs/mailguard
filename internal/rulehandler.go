@@ -15,7 +15,6 @@ Receive e-mails in txt format and evaluate parameters.
 Output will be a list of determined behaviour.
  */
 func EvalRulesAndTriggerActions(config Config, rules []string, dataUnitList * [] DataUnit, maxUnreadMessagesPerCycle int)  {
-
 	// Walk around message list
 	log.Println("Last " + utils.ToString(maxUnreadMessagesPerCycle) +  " messages:")
 	for element := range *dataUnitList {

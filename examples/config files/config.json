@@ -8,10 +8,10 @@
     "port":"993"
   },
   "auth": {
-    "username":"myaddress@gmail.com",
-    "password":"1234dummy"
+    "username":"whatever@gmail.com",
+    "password":"mysuperpassword"
   },
   "account": {
-    "sender":"formaladdress@acme.com"
+    "sender":"whatever@gmail.com"
   }
 }
