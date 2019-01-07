@@ -26,4 +26,13 @@ Execute build script.
 
 ## Collaboration
 
-This project is on an early stage but any collaboration would be more than appreciated.
+This project is on an early stage but any contribution would be more than appreciated.
+
+### Important features pending to be added
+
+* Different inputs (only e-mail at this writting).
+* Different outputs (only e-mail at this writting).
+* Unit tests
+* Split the solution into packages
+* Go best practices
+* Containerized solution
